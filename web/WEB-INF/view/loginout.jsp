@@ -78,7 +78,7 @@
     </div>
     <div class="signup-footer">
         <div class="pull-left">
-            &copy; awsl
+            &copy; AwslCRM
         </div>
     </div>
 </div>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.admin.dao.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.javasm.admin.entity.Permission">
+    <id column="per_id" jdbcType="INTEGER" property="perId" />
+    <result column="per_name" jdbcType="VARCHAR" property="perName" />
+    <result column="per_url" jdbcType="VARCHAR" property="perUrl" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    per_id, per_name, per_url, parent_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_permission
+    where per_id = #{perId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_permission
+    where per_id = #{perId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javasm.admin.entity.Permission">
+    insert into tb_permission (per_id, per_name, per_url, 
+      parent_id, create_time, update_time
+      )
+    values (#{perId,jdbcType=INTEGER}, #{perName,jdbcType=VARCHAR}, #{perUrl,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javasm.admin.entity.Permission">
+    insert into tb_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="perId != null">
+        per_id,
+      </if>
+      <if test="perName != null">
+        per_name,
+      </if>
+      <if test="perUrl != null">
+        per_url,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="perId != null">
+        #{perId,jdbcType=INTEGER},
+      </if>
+      <if test="perName != null">
+        #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="perUrl != null">
+        #{perUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javasm.admin.entity.Permission">
+    update tb_permission
+    <set>
+      <if test="perName != null">
+        per_name = #{perName,jdbcType=VARCHAR},
+      </if>
+      <if test="perUrl != null">
+        per_url = #{perUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where per_id = #{perId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javasm.admin.entity.Permission">
+    update tb_permission
+    set per_name = #{perName,jdbcType=VARCHAR},
+      per_url = #{perUrl,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where per_id = #{perId,jdbcType=INTEGER}
+  </update>
+</mapper>

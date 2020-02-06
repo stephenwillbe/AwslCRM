@@ -23,18 +23,34 @@ public class UserTest {
 
     @Resource
     private UserMapper ud;
-
+    //测试获取单个用户信息
     @Test
-    public void getUsers(){
-        System.out.println(us.getUser(888888));
+    public void getUser(){
+        System.out.println(us.getUser(888894));
     }
 
+    //测试验证登陆信息
     @Test
     public void checkUser(){
         User user = new User("doninb","1234");
 //        System.out.println(ud.selectUsers(user));
         System.out.println(us.checkUser(user));
     }
+    //测试获取全部用户
+    @Test
+    public void getUsers(){
+        System.out.println(us.selectUser());
+    }
+
+    //测试跟新用户
+    @Test
+    public void uptUser(){
+        User orUser = us.getUser(888894);
+        orUser.setUserAge(23);
+        System.out.println(us.updateUser(orUser));
+    }
+
+
 
 
 }

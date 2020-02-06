@@ -1,6 +1,9 @@
 package com.javasm.admin.service;
 
 import com.javasm.admin.entity.User;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -15,5 +18,12 @@ public interface UserService {
 
     public User checkUser(User orUser);
 
+    public List<User> selectUser();
 
+    public boolean updateUser(User newUser);
+
+    boolean insUser(User newUser);
+
+
+    boolean delUser(Integer userId);
 }

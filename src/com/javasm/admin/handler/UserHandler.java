@@ -1,21 +1,19 @@
 package com.javasm.admin.handler;
 
-import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.javasm.admin.entity.User;
 import com.javasm.admin.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
- * @Description: 用户控制类
+ * @Description: 用户控制，用户数据的增删改查
  * @Author 陈嘉浩
  * @Date 2020/2/4
  * @Version 1.0
@@ -27,96 +25,68 @@ public class UserHandler {
     private UserService us;
 
     /*
-     * @Description //跳转到登陆页面
-     * @Param []
-     * @return java.lang.String
+     * @Description //分页获取用户数据
+     * @Param 当前页码，当页记录数
+     * @return 用户和分页信息
      **/
-    @RequestMapping("/loginout")
-    public String gologin(){
-        return "loginout";
-    }
-    /*
-     * @Description //跳转到首页
-     * @Param []
-     * @return java.lang.String
-     **/
-    @RequestMapping("/home")
-    public String gohome(){
-        return "forward:WEB-INF/view/home.html";
-    }
-    /*
-     * @Description //跳转到用户列表页
-     * @Param []
-     * @return java.lang.String
-     **/
-    @RequestMapping("/userList")
-    public String goUserlist(){
-        return "forward:WEB-INF/view/user_list.html";
-    }
-
-    /*
-     * @Description //跳转到新增用户页
-     * @Param []
-     * @return java.lang.String
-     **/
-    @RequestMapping("/userAdd")
-    public String goAddUser(){
-        return "forward:WEB-INF/view/user_add.html";
-    }
-
-    /*
-     * @Description //跳转到新增用户页
-     * @Param []
-     * @return java.lang.String
-     **/
-    @RequestMapping("/perList")
-    public String goPerList(){
-        return "forward:WEB-INF/view/per_list.html";
-    }
-
-    /*
-     * @Description //验证账号并登陆跳转到主页
-     * @Param 请求对象，用户输入数据
-     * @return 验证后跳转的页面
-     **/
-    @RequestMapping("/checklog")
+    @RequestMapping("/getAllUsers")
     @ResponseBody
-    public String checkLog(HttpServletRequest request, User inputUser){
-        if(request!=null&&inputUser!=null&&!"".equals(inputUser)){
-            Map<String,Object> returnMap = new HashMap<>();
-            HttpSession httpSession = request.getSession();
-            User verfiUser = us.checkUser(inputUser);
-            if(verfiUser!=null){
-                httpSession.setAttribute("LOGIN_USER",verfiUser);
-                returnMap.put("Code","200");
-                returnMap.put("reMes","success");
-                returnMap.put("User",verfiUser);
-            }else{
-                returnMap.put("Code","500");
-                returnMap.put("reMes","failure");
-            }
-            String returnMessage = JSON.toJSONString(returnMap);
-            return returnMessage;
-        }else{
+    public PageInfo<User> getUserListByPage(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "4") int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> userList = us.selectUser();
+        PageInfo<User> info = new PageInfo<>(userList);
+        return info;
+    }
+
+    /*
+     * @Description //跟新用户数据
+     * @Param 更改数据后的用户
+     * @return java.lang.String
+     **/
+    @RequestMapping("/uptUser")
+    @ResponseBody
+    public String uptUser(User uptUser) {
+        boolean flag = us.updateUser(uptUser);
+        if (flag) {
+            return "success";
+        } else {
             return "failure";
         }
     }
 
     /*
-     * @Description //退出登录，并清除session
-     * @Param [request]
+     * @Description //用户修改密码
+     * @Param [newPass]
      * @return java.lang.String
      **/
-    @RequestMapping("/exit")
-    public String goOut(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.removeAttribute("LOGIN_USER");
-        return "redirect:loginout";
+    @RequestMapping("/uptUserPass")
+    @ResponseBody
+    public String uptUserPass(String newPass){
+        return "failure";
     }
 
-    @RequestMapping("/getAllUsers")
-    public String getUserList(){
-        return null;
+    /*
+     * @Description //新增用户
+     * @Param [user]
+     * @return java.lang.String
+     **/
+    @RequestMapping("/insUser")
+    @ResponseBody
+    public String insUser(User newUser){
+        boolean flag = us.insUser(newUser);
+        if(flag){
+            return "success";
+        }else {
+            return "failure";
+        }
     }
+
+    @RequestMapping("/delUser")
+    @ResponseBody
+    public String delUser(Integer userId){
+        return "failure";
+    }
+
+
 
 }
