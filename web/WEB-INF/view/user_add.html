@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="static/layui/css/layui.css" rel="stylesheet">
+	</head>
+	<body>
+<div style="margin: 10px 10px 10px 10px;" class="layui-collapse">
+  <div class="layui-colla-item">
+	   <h2 class="layui-colla-title">填写用户信息</h2>
+  <div class="layui-colla-content layui-show">
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户名</label>
+				<div class="layui-input-block">
+					<input id="myaddname" type="text" name="userName" required lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+					 class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密码</label>
+				<div class="layui-input-inline">
+					<input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+				</div>
+				<div class="layui-form-mid layui-word-aux">辅助文字</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">所属部门</label>
+				<div class="layui-input-block">
+					<select id="mydept" lay-verify="required">
+						<option value=""></option>
+						<option value="0">董事会</option>
+						<option value="">生产部</option>
+						<option value="2">市场部</option>
+						<option value="3">运营部</option>
+						<option value="4">开发部</option>
+					</select>
+				</div>
+			</div>
+			<label class="layui-form-label ">权限选择</label>
+			<div style="margin-left: 100px;" class="layui-form-item">
+
+				<div class="demo-tree demo-tree-box" id="preChoice"></div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">年龄</label>
+				<div class="layui-input-block">
+					<select name="age" id="zcySelect" lay-verify="required">
+						
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">性别</label>
+				<div class="layui-input-block">
+					<input type="radio" name="sex" value="男" title="男">
+					<input type="radio" name="sex" value="女" title="女" checked>
+				</div>
+			</div>
+			<div class="layui-form-item ">
+				<label class="layui-form-label">选择头像</label>
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn" id="myheadimg">
+						<i class="layui-icon">&#xe67c;</i>上传图片
+					</button>
+					<div class="layui-upload-list">
+						<img class="layui-upload-img" id="demo1">
+						<p id="demoText"></p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+		</form>
+		</div>
+		</div>
+		</div>
+		
+		<script src="static/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			//表格组件
+			layui.use(['layer', 'form', 'element'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					element = layui.element
+				form.render();
+				$("#myaddname").on("click", function() {
+					$("#zcySelect").html("")
+					for (var i = 1; i < 60; i++) {
+						var mycontent = '<option >' + i + '<option>';
+						$("#zcySelect").append(mycontent)
+						form.render('select')
+					}
+				})
+             $("select[name='age']").parent().find(".layui-anim-upbit").css("top","-192px");
+			});
+
+			//树形组件
+			layui.use('tree', function() {
+				var tree = layui.tree;
+				//渲染
+				var inst1 = tree.render({
+					elem: '#preChoice' //绑定元素
+						,
+					data: [{
+						title: '江西',
+						id: 1,
+						children: [{
+							title: '南昌',
+							id: 1000,
+							children: [{
+								title: '青山湖区',
+								id: 10001
+							}, {
+								title: '高新区',
+								id: 10002
+							}]
+						}, {
+							title: '九江',
+							id: 1001
+						}, {
+							title: '赣州',
+							id: 1002
+						}]
+					}, {
+						title: '广西',
+						id: 2,
+						children: [{
+							title: '南宁',
+							id: 2000
+						}, {
+							title: '桂林',
+							id: 2001
+						}]
+					}, {
+						title: '陕西',
+						id: 3,
+						children: [{
+							title: '西安',
+							id: 3000
+						}, {
+							title: '延安',
+							id: 3001
+						}]
+					}],
+					showCheckbox: true,
+					accordion: true,
+					showLine: true
+				});
+			});
+
+			//文件上传组件
+			layui.use('upload', function() {
+				var upload = layui.upload;
+
+				var uploadInst = upload.render({
+					elem: '#myheadimg',
+					url: '',
+					before: function(obj) {
+						obj.preview(function(index, file, result) {
+							$('#demo1').attr('src', result); //图片链接（base64）
+						});
+					}
+
+				});
+			});
+		</script>
+	</body>
+</html>
