@@ -1,0 +1,6 @@
+.classpath
+.settings/
+build/
+.project
+generator.xml
+jdbc.properties
