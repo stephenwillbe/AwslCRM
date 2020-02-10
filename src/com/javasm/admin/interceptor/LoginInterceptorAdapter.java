@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * @Date 2020/2/5
  * @Version 1.0
  **/
-public class AdminInterceptorAdapter implements HandlerInterceptor {
+public class LoginInterceptorAdapter implements HandlerInterceptor {
 
     @Override
     /*

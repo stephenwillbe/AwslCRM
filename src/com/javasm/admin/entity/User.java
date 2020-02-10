@@ -20,6 +20,9 @@ public class User {
     private Integer userAge;
 
     private String userDept;
+
+    private String userPhone;
+
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
@@ -30,7 +33,7 @@ public class User {
         this.userPass = userPass;
     }
 
-    public User(String userName, String userPass, Integer userAge,  String userDept) {
+    public User(String userName, String userPass, Integer userAge,  String userDept , String userPhone) {
         this.userName = userName;
         this.userPass = userPass;
         this.userAge = userAge;

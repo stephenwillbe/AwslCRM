@@ -1,9 +1,11 @@
 package com.javasm.admin.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.javasm.util.MD5Util;
 import com.javasm.admin.dao.UserMapper;
 import com.javasm.admin.entity.User;
 import com.javasm.admin.service.UserService;
+import com.javasm.util.RedisService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper ud;
+
+    @Resource
+    private RedisService rs;
+
+    private String userinfokey = "userinfo:";
+//
 
     /*
      * @Description //获取单个用户的信息
@@ -86,6 +94,37 @@ public class UserServiceImpl implements UserService {
             }
         }
         return false;
+    }
+
+    /*
+     * @Description //根据用户手机号获得用户信息
+     * @Param [uPhone]
+     * @return com.javasm.admin.entity.User
+     **/
+    @Transactional
+    @Override
+    public User getUserByPhone(String uPhone) {
+        //在redis实例中根据手机号获得用户的信息，可以存string或者hash
+        String key = userinfokey+uPhone;
+        String userinfostr = rs.get(key);
+        if(userinfostr==null){
+            User u = new User();
+            u.setUserPhone(uPhone);
+            //从sql数据库查询
+            User userinfo = ud.selectUserBySelective(u);
+            if(userinfo!=null){
+            //放入redis
+            rs.set(key, JSON.toJSONString(userinfo));
+            return userinfo;
+            }else {
+                //未注册
+                return null;
+            }
+        }else{
+            //userinfostr转对象
+            User userinfo = JSON.parseObject(userinfostr, User.class);
+            return userinfo;
+        }
     }
 
     /*

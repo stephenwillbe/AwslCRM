@@ -5,9 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.javasm.admin.entity.User;
 import com.javasm.admin.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -81,12 +79,28 @@ public class UserHandler {
         }
     }
 
+    /*
+     * @Description //根据id删除用户
+     * @Param [userId]
+     * @return java.lang.String
+     **/
     @RequestMapping("/delUser")
     @ResponseBody
     public String delUser(Integer userId){
         return "failure";
     }
 
+    /*
+     * @Description //根据用户手机号返回用户的信息
+     * @Param [uphone]
+     * @return com.javasm.admin.entity.User
+     **/
+    @PostMapping("/getUser/{userPhone}")
+    @ResponseBody
+    public User getUser(@PathVariable("userPhone") String uphone){
+        User userByPhone = us.getUserByPhone(uphone);
+        return userByPhone;
+    }
 
 
 }

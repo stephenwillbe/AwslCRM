@@ -50,6 +50,10 @@ public class UserTest {
         System.out.println(us.updateUser(orUser));
     }
 
+    @Test
+    public void getUserBy(){
+        System.out.println(us.getUserByPhone("111"));
+    }
 
 
 

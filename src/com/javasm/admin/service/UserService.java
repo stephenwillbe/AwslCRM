@@ -22,8 +22,9 @@ public interface UserService {
 
     public boolean updateUser(User newUser);
 
-    boolean insUser(User newUser);
+    public User getUserByPhone(String uPhone);
 
+    boolean insUser(User newUser);
 
     boolean delUser(Integer userId);
 }

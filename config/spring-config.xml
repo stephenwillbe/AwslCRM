@@ -12,8 +12,11 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:redis.properties" />
+
     <import resource="classpath:spring-mybatis.xml"></import>
 
+    <import resource="classpath:redis-config.xml"></import>
 
 
 </beans>
