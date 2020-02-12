@@ -14,7 +14,7 @@ import java.util.List;
  **/
 public interface UserService {
 
-    public User getUser(Integer userid);
+    public User getUser(String userid);
 
     public User checkUser(User orUser);
 
@@ -26,5 +26,7 @@ public interface UserService {
 
     boolean insUser(User newUser);
 
-    boolean delUser(Integer userId);
+    boolean delUser(String userId);
+
+    public User registUser(String userPhone);
 }

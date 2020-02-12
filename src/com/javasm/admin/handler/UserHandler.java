@@ -17,6 +17,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Controller
+@RequestMapping("/um")
 public class UserHandler {
 
     @Resource
@@ -29,11 +30,11 @@ public class UserHandler {
      **/
     @RequestMapping("/getAllUsers")
     @ResponseBody
-    public PageInfo<User> getUserListByPage(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "4") int pageSize) {
+    public List<User> getUserListByPage(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "10") int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<User> userList = us.selectUser();
         PageInfo<User> info = new PageInfo<>(userList);
-        return info;
+        return userList;
     }
 
     /*

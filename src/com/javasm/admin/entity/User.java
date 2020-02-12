@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @ToString
 public class User {
-    private Integer userId;
+    private String userId;
 
     private String userName;
 
@@ -38,5 +38,6 @@ public class User {
         this.userPass = userPass;
         this.userAge = userAge;
         this.userDept = userDept;
+        this.userPhone = userPhone;
     }
 }

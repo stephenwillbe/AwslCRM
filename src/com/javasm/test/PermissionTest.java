@@ -1,5 +1,4 @@
 import com.javasm.admin.dao.PermissionMapper;
-import com.javasm.admin.service.PermissionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,8 +16,6 @@ import javax.annotation.Resource;
 @ContextConfiguration("classpath:spring-config.xml")
 public class PermissionTest {
 
-    @Resource
-    private PermissionService ps;
 
     @Resource
     private PermissionMapper pd;

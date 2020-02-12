@@ -15,15 +15,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_permission
+    from tb_per
     where per_id = #{perId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_permission
+    delete from tb_per
     where per_id = #{perId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.javasm.admin.entity.Permission">
-    insert into tb_permission (per_id, per_name, per_url, 
+    insert into tb_per (per_id, per_name, per_url, 
       parent_id, create_time, update_time
       )
     values (#{perId,jdbcType=INTEGER}, #{perName,jdbcType=VARCHAR}, #{perUrl,jdbcType=VARCHAR}, 
@@ -31,7 +31,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.javasm.admin.entity.Permission">
-    insert into tb_permission
+    insert into tb_per
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="perId != null">
         per_id,
@@ -74,7 +74,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.javasm.admin.entity.Permission">
-    update tb_permission
+    update tb_per
     <set>
       <if test="perName != null">
         per_name = #{perName,jdbcType=VARCHAR},
@@ -95,7 +95,7 @@
     where per_id = #{perId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.javasm.admin.entity.Permission">
-    update tb_permission
+    update tb_per
     set per_name = #{perName,jdbcType=VARCHAR},
       per_url = #{perUrl,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=INTEGER},

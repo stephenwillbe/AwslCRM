@@ -1,3 +1,4 @@
+import com.javasm.util.StringUtil;
 import org.junit.Test;
 
 import java.util.Date;
@@ -13,6 +14,16 @@ public class UtilTest {
     @Test
     public void getDate(){
         System.out.println(new Date().getTime());
-
     }
+
+    @Test
+    public void getRanNum(){
+        System.out.println(StringUtil.randomStr(6));
+    }
+    @Test
+    public void verfiPhone(){
+        System.out.println(StringUtil.isMobile("1360030397"));
+    }
+
+
 }

@@ -50,6 +50,9 @@
             <mvc:exclude-mapping path="/upload/**"/>
             <mvc:exclude-mapping path="/loginout"/>
             <mvc:exclude-mapping path="/checklog"/>
+            <mvc:exclude-mapping path="/checklog2"/>
+            <mvc:exclude-mapping path="/sendVerCode"/>
+<!--            <mvc:exclude-mapping path="/um/**"/>-->
             <bean class="com.javasm.admin.interceptor.LoginInterceptorAdapter"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

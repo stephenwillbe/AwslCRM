@@ -1,6 +1,5 @@
 package com.javasm.admin.handler;
 
-import com.javasm.admin.service.PermissionService;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
@@ -14,8 +13,7 @@ import javax.annotation.Resource;
 @Controller
 public class PermissionHandler {
 
-    @Resource
-    private PermissionService ps;
+
 
 
 

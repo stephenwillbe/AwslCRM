@@ -1,6 +1,7 @@
 import com.javasm.admin.dao.UserMapper;
 import com.javasm.admin.entity.User;
 import com.javasm.admin.service.UserService;
+import com.javasm.util.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,11 +23,14 @@ public class UserTest {
     private UserService us;
 
     @Resource
+    private RedisService rs;
+
+    @Resource
     private UserMapper ud;
     //测试获取单个用户信息
     @Test
     public void getUser(){
-        System.out.println(us.getUser(888894));
+        System.out.println(us.getUser("888894"));
     }
 
     //测试验证登陆信息
@@ -45,7 +49,7 @@ public class UserTest {
     //测试跟新用户
     @Test
     public void uptUser(){
-        User orUser = us.getUser(888894);
+        User orUser = us.getUser("888894");
         orUser.setUserAge(23);
         System.out.println(us.updateUser(orUser));
     }
@@ -55,6 +59,18 @@ public class UserTest {
         System.out.println(us.getUserByPhone("111"));
     }
 
+    @Test
+    public void getVer(){
+//        System.out.println(rs.get("verCode:15347429589"));
+//        System.out.println(rs.get("verCode:1534742958"));
+          rs.setex("verCode:13600303973",300,"33333");
+    }
+
+    @Test
+    public void registUser(){
+
+        System.out.println(us.registUser("15347429589"));
+    }
 
 
 }

@@ -131,7 +131,7 @@ public class RedisService {
 		}
 		try {
 			result = shardedJedis.expire(key, seconds);
-
+			System.out.println(result);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		} finally {

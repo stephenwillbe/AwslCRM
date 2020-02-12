@@ -1,6 +1,6 @@
 package com.javasm.admin.service.impl;
 
-import com.javasm.admin.service.PermissionService;
+import com.javasm.admin.service.RoleService;
 
 /**
  * @Description: TODO
@@ -8,5 +8,5 @@ import com.javasm.admin.service.PermissionService;
  * @Date 2020/2/11
  * @Version 1.0
  **/
-public class PermissionServiceImpl implements PermissionService {
+public class RoleServiceImpl implements RoleService {
 }

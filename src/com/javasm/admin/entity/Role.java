@@ -9,17 +9,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Permission {
-    private Integer perId;
+public class Role {
+    private Integer roleId;
 
-    private String perName;
-
-    private String perUrl;
-
-    private Integer parentId;
-
-    private Date createTime;
+    private String roleName;
 
     private Date updateTime;
+
+    private Date createTime;
 
 }

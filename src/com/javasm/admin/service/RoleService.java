@@ -6,5 +6,5 @@ package com.javasm.admin.service;
  * @Date 2020/2/11
  * @Version 1.0
  **/
-public interface PermissionService {
+public interface RoleService {
 }

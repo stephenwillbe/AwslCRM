@@ -1,11 +1,13 @@
 package com.javasm.admin.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.javasm.util.IdGenerateUtil;
 import com.javasm.util.MD5Util;
 import com.javasm.admin.dao.UserMapper;
 import com.javasm.admin.entity.User;
 import com.javasm.admin.service.UserService;
 import com.javasm.util.RedisService;
+import com.javasm.util.StringUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserService {
      * @return User
      **/
     @Override
-    public User getUser(Integer userid) {
+    public User getUser(String userid) {
         User user = ud.selectByPrimaryKey(userid);
         return user;
     }
@@ -153,7 +155,7 @@ public class UserServiceImpl implements UserService {
      **/
     @Transactional
     @Override
-    public boolean delUser(Integer userId){
+    public boolean delUser(String userId){
         if(userId!=null){
             int num = ud.deleteByPrimaryKey(userId);
             if(num>0){
@@ -162,5 +164,28 @@ public class UserServiceImpl implements UserService {
             return false;
         }
        return false;
+    }
+
+    /*
+     * @Description //根据手机号快速注册账号,设置默认用户名为手机号
+     * @Param [userPhone]
+     * @return boolean
+     **/
+    @Transactional
+    @Override
+    public User registUser(String userPhone) {
+        if(StringUtil.isMobile(userPhone)&&StringUtil.isNotEmpty(userPhone)){
+            User newUser = new User();
+            newUser.setUserPhone(userPhone);
+            newUser.setUserId(IdGenerateUtil.getPrimaryKey());
+            newUser.setUserName(userPhone);
+            int num = ud.insertSelective(newUser);
+            if(num>0){
+                return newUser;
+            }else{
+                return null;
+            }
+        }
+        return null;
     }
 }
